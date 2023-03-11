@@ -53,3 +53,59 @@ Use the project in [tp3-date](../code/tp3-date) to complete this exercise.
 
 ## Answer
 
+The `Date` class is implemented [here](../code/tp3-date/src/main/java/fr/istic/vv/Date.java)
+
+The test suite is implemented [here](../code/tp3-date/src/test/java/fr/istic/vv/DateTest.java)
+
+### 1. Input space partitioning
+
+* isLeapYear :
+
+| Characteristic | Block 1   | Block 2                 |
+|----------------|-----------|-------------------------|
+| Value of year  | leap year | not leap year           |
+
+* isValidDate :
+
+| Characteristic | Block 1   | Block 2                      | Block 3                     | Block 4            | Block 5 |
+|----------------|-----------|------------------------------|-----------------------------|--------------------|---------|
+| Value of year  | leap year | not leap year                |                             |                    |         |
+| Value of month | < 1       | 30 days months               | 31 days months              | february           | > 12    |
+| Value of day   | < 1       | >= 1 && <= max(month, year)  | > max(month, year)          |                    |         |
+
+max(month, year) = 31 if month is 1, 3, 5, 7, 8, 10, 12; 30 if month is 4, 6, 9, 11; 28 if month is 2 and year is not leap year; 29 if month is 2 and year is leap year.
+
+Other test have the same input as isValidDate but encapsulated in a Date object.
+
+### 2. Statement coverage
+
+We got 100% statement coverage with our first test suite.
+
+### 3. Base choice coverage
+
+We have a lot of predicates with more than two boolean operators.
+The isLeapYear one did not satisfy base choice coverage.
+So we modified the input space partitioning as :
+
+| Characteristic | Block 1            | Block 2                         | Block 3                           | Block 4                           |
+|----------------|--------------------|---------------------------------|-----------------------------------|-----------------------------------|
+| Value of year  | Not divisible by 4 | Divisible by 4 but not by 100   | Divisible by 4 By 100 and by 400  | Divisible by 4, 100 and not 400   |
+
+### 4. Mutation score
+
+With our first test suite, 71 of the 74 mutants were killed.
+
+* Mutant still alive on isValidDate
+Testing that dates of 30 days month didn't have more than 30 days did not test day 31.
+So a condition was not tested.
+	-> Added new test input to test that case
+	
+* Mutant still alive on nextDate
+Forgot test for nominal case (just increasing day).
+	-> Added new test input to test that case
+	
+* Mutant still alive on previousDate
+Forgot test for nominal case (just decreasing day).
+	-> Added new test input to test that case
+
+After that 74/74 mutation killed

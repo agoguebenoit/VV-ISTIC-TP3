@@ -26,3 +26,32 @@ Use the project in [tp3-balanced-strings](../code/tp3-balanced-strings) to compl
 
 ## Answer
 
+The method `isBalanced` is implemented [here](../code/tp3-balanced-strings/src/main/java/fr/istic/vv/StringUtils.java)
+
+The test suite is implemented [here](../code/tp3-balanced-strings/src/test/java/fr/istic/vv/StringUtilsTest.java)
+
+### 1. Input space partitioning
+
+Partition blocks:
+
+| Characteristic            | Block 1                   | Block 2                   |
+|---------------------------|---------------------------|---------------------------|
+| Length of input string    | 0                         | > 0                       |
+| Balance of parenthesis    | Balanced parenthesis      | Unbalanced parenthesis    |
+| Balance of brackets       | Balanced brackets         | Unbalanced brackets       |
+| Balance of curly braces   | Balanced curly braces     | Unbalanced curly braces   |
+
+### 2. Statement coverage
+
+Our first test suite gave us a statement coverage of 80%.
+We forgot two cases in our input that were described by or partitions. We added them to our test suite.
+
+### 3. Base choice coverage
+
+Our first if (to push in the stack) have two more than two boolean operator.
+So far ou test cases satisfy the Base Choice Coverage.
+
+### 4. Mutation score
+
+17 out of 17 mutants were killed.
+
